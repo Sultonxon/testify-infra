@@ -40,6 +40,24 @@ for stack in "${STACKS[@]}"; do
         cp -r "$src/config" "$dir/"
         echo "[done] $dir/config/"
     fi
+
+    if [[ -d "$src/docker" ]]; then
+        cp -r "$src/docker" "$dir/"
+        echo "[done] $dir/docker/"
+    fi
+
+    # Copy env file if present, fall back to template
+    local name="$stack"
+    local src_env="$INFRA_DIR/envs/staging/${name}.env"
+    local src_tmpl="$INFRA_DIR/envs/staging/${name}.env.template"
+    local env_dst="$dir/${name}.env"
+    if [[ -f "$src_env" ]]; then
+        cp "$src_env" "$env_dst"
+        echo "[done] $env_dst  (from .env)"
+    elif [[ -f "$src_tmpl" ]]; then
+        cp "$src_tmpl" "$env_dst"
+        echo "[template] $env_dst  ← fill in placeholders before deploying"
+    fi
 done
 
 # --- Nginx ---
