@@ -8,3 +8,4 @@ stacks/**/*.yaml
 # Cloudflare origin certificates (place manually on server)
 certs/*
 !certs/.gitkeep
+.claude/settings.json
