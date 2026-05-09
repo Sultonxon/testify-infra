@@ -1,0 +1,10 @@
+# Generated stack files — created from *.yaml.template by CI/CD on the server
+stacks/**/*.yaml
+!stacks/**/*.yaml.template
+
+# All actual env files are gitignored — use *.env.template as the source to copy from
+**/*.env
+
+# Cloudflare origin certificates (place manually on server)
+certs/*
+!certs/.gitkeep

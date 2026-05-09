@@ -1,0 +1,41 @@
+services:
+  github-runner-testify:
+    image: myoung34/github-runner:latest
+    restart: unless-stopped
+    environment:
+      REPO_URL: https://github.com/Sultonxon/testify
+      RUNNER_NAME: dev-runner-testify
+      RUNNER_SCOPE: repo
+      LABELS: self-hosted,dev
+      ACCESS_TOKEN: ${GITHUB_RUNNER_PAT}
+      EPHEMERAL: "true"
+      DISABLE_AUTO_UPDATE: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - runner-testify-work:/home/runner/_work
+      - /srv/identity:/srv/identity
+      - /srv/platform:/srv/platform
+    group_add:
+      - ${DOCKER_GID}
+
+  github-runner-frontend:
+    image: myoung34/github-runner:latest
+    restart: unless-stopped
+    environment:
+      REPO_URL: https://github.com/abdulkhamidov-770/testify_platform_frontend
+      RUNNER_NAME: dev-runner-frontend
+      RUNNER_SCOPE: repo
+      LABELS: self-hosted,dev
+      ACCESS_TOKEN: ${GITHUB_RUNNER_PAT}
+      EPHEMERAL: "true"
+      DISABLE_AUTO_UPDATE: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - runner-frontend-work:/home/runner/_work
+      - /srv/platform-frontend:/srv/platform-frontend
+    group_add:
+      - ${DOCKER_GID}
+
+volumes:
+  runner-testify-work:
+  runner-frontend-work:

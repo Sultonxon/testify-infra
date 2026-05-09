@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    # $$REDIS_PASSWORD: $$ escapes to a single $ inside the container shell
+    command: sh -c "redis-server --requirepass $$REDIS_PASSWORD --appendonly yes"
+    env_file: redis.env
+    volumes:
+      - redis-data:/data
+    networks:
+      testify-net:
+        aliases:
+          - redis
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  redis-data:
+
+networks:
+  testify-net:
+    external: true

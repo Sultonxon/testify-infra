@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: ghcr.io/abdulkhamidov-770/testify_platform_frontend:{version}
+    env_file: platform-frontend.env
+    ports:
+      - "3000:3000"
+    networks:
+      - testify-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+
+networks:
+  testify-net:
+    external: true
