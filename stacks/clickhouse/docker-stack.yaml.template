@@ -23,6 +23,10 @@ services:
         read_only: true
     networks:
       - testify-net
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       placement:
@@ -37,6 +41,10 @@ services:
       - mongo-data:/data/db
     networks:
       - testify-net
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       placement:
@@ -61,6 +69,10 @@ services:
       - "8888:8888"    # metrics
     networks:
       - testify-net
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       restart_policy:
@@ -84,6 +96,10 @@ services:
       - "8080:8080"  # HyperDX UI
     networks:
       - testify-net
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       restart_policy:

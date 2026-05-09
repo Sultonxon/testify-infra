@@ -12,6 +12,10 @@ services:
       testify-net:
         aliases:
           - redis
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       placement:

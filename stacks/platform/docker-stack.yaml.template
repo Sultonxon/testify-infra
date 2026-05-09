@@ -8,6 +8,10 @@ services:
       - "5002:5002"
     networks:
       - testify-net
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       restart_policy:

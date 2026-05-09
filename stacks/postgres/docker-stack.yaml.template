@@ -16,6 +16,10 @@ services:
       testify-net:
         aliases:
           - testifypg
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
     deploy:
       replicas: 1
       placement:
